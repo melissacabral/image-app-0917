@@ -20,13 +20,15 @@
 		?>
 		<article>
 			<h2><?php echo $row['username']; ?></h2>
-			<img src="<?php echo $row['image']; ?>">
+			<a href="single.php?post_id=<?php echo $row['post_id']; ?>">
+				<img src="<?php echo $row['image']; ?>">
+			</a>
 
 			<div class="post-info">
 				<h3><?php echo $row['title']; ?></h3>
 				<h4>Category: <?php echo $row['name'] ?></h4>
 				<p><?php echo $row['body']; ?></p>
-				<span class="date"><?php echo convert_date($row['date']); ?></span>
+				<span class="date"><?php convert_date($row['date']); ?></span>
 				<span class="comment-count"><?php count_comments( $row['post_id'] ); ?></span>
 			</div>
 		</article>

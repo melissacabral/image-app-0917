@@ -6,7 +6,7 @@
  */
 function convert_date( $timestamp ){
 	$date = new DateTime( $timestamp );
-	return $date->format('F j, Y');
+	echo $date->format('F j, Y');
 }
 
 /**
@@ -38,6 +38,29 @@ function count_comments( $post_id ){
 			endif;
 		endwhile;
 	endif;
+}
+
+/**
+ * Form Field Sanitizing Functions
+ */
+function clean_string( $dirty ){
+	global $db;
+	//strip the tags
+	$clean = filter_var($dirty, FILTER_SANITIZE_STRING);
+	//prep for DB
+	$clean = mysqli_real_escape_string($db, $clean);
+
+	return $clean;
+}
+
+function clean_int( $dirty ){
+	global $db;
+	//strip the tags
+	$clean = filter_var($dirty, FILTER_SANITIZE_NUMBER_INT);
+	//prep for DB
+	$clean = mysqli_real_escape_string($db, $clean);
+
+	return $clean;
 }
 
 //no close php
