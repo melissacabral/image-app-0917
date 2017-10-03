@@ -9,6 +9,19 @@ function convert_date( $timestamp ){
 	echo $date->format('F j, Y');
 }
 
+
+/**
+ * Convert any DATETIME to RFC-822 for the RSS feed
+ * @param   $timestamp string - any date/time stamp
+ * @return  string. A nicely formatted date
+ */
+function convert_date_rss( $timestamp ){
+	$date = new DateTime( $timestamp );
+	echo $date->format('r');
+}
+
+
+
 /**
  * Count the number of comments on any particular post
  * @param $post_id int any valid post_id

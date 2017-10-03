@@ -32,8 +32,8 @@ endif;
 	?>
 	<article>
 		<img src="<?php echo $row['image']; ?>">
-		<h2>
-			<img src="<?php echo $row['profile_pic']; ?>" width="80" height="80">
+		<h2 class="profile-pic">
+			<img  src="<?php echo $row['profile_pic']; ?>" width="80" height="80">
 			<?php echo $row['username']; ?>
 		</h2>
 		<h3><?php echo $row['title']; ?></h3>
