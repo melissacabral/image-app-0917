@@ -1,5 +1,10 @@
 TODO
 ====
+* Make the register form
+* parse the register form
+* Adapt the day 3 login form 
+* Make a helper function to check to see if current user is logged in
+* Make the interface change (navigation) based on login
 
 * Make comment form work with the login
 
