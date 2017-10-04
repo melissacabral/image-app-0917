@@ -1,13 +1,16 @@
 <?php 
 //get the login parser and logout logic
-require('login-logic.php'); 
+require('includes/db-config.php');
+require_once('includes/functions.php');
+require('includes/login-logic.php'); 
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Log in to your account</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="styles/login-style.css">
 </head>
 <body>
 	<?php //if not logged in, show the form
@@ -15,9 +18,7 @@ require('login-logic.php');
 	<h1>Log in to your account</h1>
 
 	<?php 
-	if( isset($feedback) ):
-		echo "<div class='feedback'>$feedback</div>";
-	endif; 
+	form_errors($feedback, $errors);
 	?>
 
 	<form action="login.php" method="post">

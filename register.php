@@ -1,4 +1,7 @@
 <?php 
+session_start();
+error_reporting( E_ALL & ~E_NOTICE ); 
+
 require('includes/db-config.php');
 require_once('includes/functions.php');
 
@@ -71,8 +74,37 @@ if( $_POST['did_register'] ):
 		if( !$result )
 			echo $db->error;
 		if( $db->affected_rows == 1 ):
-			//SUCCESS! TODO: log them in and redirect to home
+			//SUCCESS! 
 			$feedback = "Success. You are now a user!";
+
+			$secret_key = sha1( microtime() . 'sgfks#^$^&hfjrsd,lkwaqe;lh51130851');
+			//store the secret in the DB
+			$user_id = $db->insert_id;
+			$query = "UPDATE users
+						SET secret_key = '$secret_key'
+						WHERE user_id = $user_id";
+			$result = $db->query($query);
+			//check it
+			if(!$result)
+				echo $db->error;
+
+			if( $db->affected_rows == 1 ):
+				//store sessions and cookies
+				setcookie( 'secret_key', $secret_key, time() + 60 * 60 * 24 * 7 );
+				$_SESSION['secret_key'] = $secret_key;
+
+				//which user is logged in?
+				setcookie( 'user_id', $user_id, time() + 60 * 60 * 24 * 7 );
+				$_SESSION['user_id'] = $user_id;
+
+				//redirect home
+				header('Location:index.php');
+
+			else:
+				//todo: remove after debugging
+				$errors['update'] = 'update secret key failed';
+			endif;
+
 		else:
 			$feedback = "Query Failed.";			
 		endif; //one row affected
@@ -98,11 +130,7 @@ endif; //end of register parser
 		<h1>Create an Account</h1>
 		<p>Sign up to start sharing photos!</p>
 
-		<?php
-		if(isset($feedback))
-			echo $feedback;
-		?>
-		<pre><?php print_r($errors); ?></pre>
+		<?php form_errors($feedback, $errors); ?>
 
 		<label for="the_username">Create Username</label>
 		<input type="text" name="username" id="the_username">

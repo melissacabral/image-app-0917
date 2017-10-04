@@ -24,14 +24,14 @@ endif; //end of logout logic
 //if the user submitted the form, parse it
 if( $_POST['did_login'] ):
 	//extract and sanitize what the user typed in
-	$username = trim(strip_tags($_POST['username']));
-	$password = trim(strip_tags($_POST['password']));
+	$username = clean_string($_POST['username']);
+	$password = clean_string($_POST['password']);
 	
 	// validate it
 	$valid = true;
 
-	//check if UN is not between 5 - 30 chars
-	if( strlen($username) < 5 OR strlen($username) > 30 ){
+	//check if UN is not between 4 - 40 chars
+	if( strlen($username) < 4 OR strlen($username) > 40 ){
 		$valid = false;
 	}
 
@@ -42,16 +42,48 @@ if( $_POST['did_login'] ):
 
 	// if valid, check login credentials
 	// if the UN & PW match the correct values, send them to the secret page
-	// TODO: Make this work with a Database
+
 	if( $valid ):
-		$correct_username = 'melissa';
-		$correct_password = 'phprules';
-		if( $username === $correct_username AND $password === $correct_password ):
-			//remember me for 24 hours
-			setcookie( 'loggedin', 1, time() + 60 * 60 * 24 );
-			$_SESSION['loggedin'] = 1;
-			//redirect
-			header('Location:secret.php');
+		$query = "SELECT user_id 
+					FROM users 
+					WHERE username = '$username' 
+					AND password = sha1('$password')
+					LIMIT 1";
+		$result = $db->query($query);
+		if( !$result )
+			echo $db->error;
+		//one row found = Correct match. log them in!
+		if( $result->num_rows == 1 ):
+			$secret_key = sha1( microtime() . 'sgfks#^$^&hfjrsd,lkwaqe;lh51130851');
+			//store the secret in the DB
+			
+			//WHO logged in?
+			$row = $result->fetch_assoc();
+			$user_id = $row['user_id'];
+			$query = "UPDATE users
+						SET secret_key = '$secret_key'
+						WHERE user_id = $user_id";
+			$result = $db->query($query);
+			//check it
+			if(!$result)
+				echo $db->error;
+
+			if( $db->affected_rows == 1 ):
+				//store sessions and cookies
+				setcookie( 'secret_key', $secret_key, time() + 60 * 60 * 24 * 7 );
+				$_SESSION['secret_key'] = $secret_key;
+
+				//which user is logged in?
+				setcookie( 'user_id', $user_id, time() + 60 * 60 * 24 * 7 );
+				$_SESSION['user_id'] = $user_id;
+
+				//redirect home
+				header('Location:index.php');
+
+			else:
+				//todo: remove after debugging
+				$errors['update'] = 'update secret key failed';
+			endif;
 		else:
 			$feedback = 'Sorry, that username/password combo is incorrect';
 		endif;

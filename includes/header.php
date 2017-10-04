@@ -1,4 +1,6 @@
 <?php 
+//login wont work without session
+session_start();
 error_reporting( E_ALL & ~E_NOTICE ); 
 //connect to the database
 require('includes/db-config.php'); 
