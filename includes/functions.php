@@ -103,4 +103,35 @@ function form_errors( $message, $problems ){
 	endif;
 }
 
+/**
+ * Check to see if a user is logged in and get all the info about them
+ * 
+ */
+function check_login(){
+	global $db;
+	//check for the expected session data
+	if( isset($_SESSION['secret_key']) AND isset($_SESSION['user_id']) ):
+		//check for a match in the DB
+		$sess_user_id = $_SESSION['user_id'];
+		$sess_secret_key = $_SESSION['secret_key'];
+
+		$query = "SELECT * 
+				FROM users
+				WHERE user_id = $sess_user_id
+				AND secret_key = '$sess_secret_key'
+				LIMIT 1";
+		$result = $db->query($query);
+		if( !$result )
+			return false;
+		if( $result->num_rows == 1 ):
+			//SUCCESS. user is logged in. return the array of all the user's data
+			return $result->fetch_assoc();
+		else:
+			return false;
+		endif;
+	else:
+		//no session data. not logged in
+		return false;
+	endif;
+}
 //no close php

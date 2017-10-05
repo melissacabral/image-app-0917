@@ -39,6 +39,8 @@ require('includes/login-logic.php');
 
 	<footer>
 		This site uses cookies to improve your experience.
+		<br>
+		<a href="index.php">Return Home</a> | <a href="register.php">New user? Sign Up</a>
 	</footer>
 </body>
 </html>

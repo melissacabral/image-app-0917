@@ -150,5 +150,11 @@ endif; //end of register parser
 		<input type="hidden" name="did_register" value="1">
 
 	</form>
+
+	<footer>
+		This site uses cookies to improve your experience.
+		<br>
+		<a href="index.php">Return Home</a> | <a href="login.php">Already registered? Log in</a>
+	</footer>
 </body>
 </html>

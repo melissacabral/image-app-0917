@@ -1,4 +1,6 @@
-<?php //TODO: Hide this form if not logged in ?>
+<?php 
+// Hide this form if not logged in
+if( $logged_in_user ): ?>
 
 <section class="comment-form">
 	<h2>Leave a comment</h2>
@@ -19,3 +21,8 @@
 		<input type="hidden" name="did_comment" value="1">
 	</form>
 </section>
+<?php 
+else:
+	echo '<b>You must be logged in to leave a comment</b>';
+endif; 
+?>

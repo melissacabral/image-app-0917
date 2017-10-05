@@ -5,6 +5,8 @@ error_reporting( E_ALL & ~E_NOTICE );
 //connect to the database
 require('includes/db-config.php'); 
 include_once('includes/functions.php');
+//check to see if someone is logged in
+$logged_in_user = check_login();
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,6 +31,22 @@ include_once('includes/functions.php');
 				<input type="submit" value="Search">
 			</form>
 		</section>
+
+		<ul class="menu">
+			<?php 
+			//menu items for users who are not logged in 
+			if( ! $logged_in_user ): ?>
+			<li><a href="login.php">Log In</a></li>
+			<li><a href="register.php">Register</a></li>
+			<?php 
+			//logged in menu items
+			else: ?>
+			<li><a href="add-post.php">Add New Post</a></li>
+			<li><a href="#"><?php echo $logged_in_user['username']; ?>'s Profile</a></li>
+			<li><a href="login.php?action=logout">Log Out</a></li>
+			<?php endif; ?>
+
+		</ul>
 	</nav>
 
 	<div class="wrapper"> <!-- closes in the footer -->

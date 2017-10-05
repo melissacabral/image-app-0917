@@ -5,8 +5,8 @@ if( $_POST['did_comment'] ):
 	//extract and sanitize all data
 	$body = clean_string($_POST['body']);
 	$post_id = clean_int($_GET['post_id']);
-	//TODO: Make this work with the future login system
-	$user_id = 1;
+	//who is logged in?
+	$user_id = $logged_in_user['user_id'];
 
 
 	//validate

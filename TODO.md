@@ -1,11 +1,10 @@
 TODO
 ====
 
-* Make a helper function to check to see if current user is logged in
-* Make the interface change (navigation) based on login
-* add logout
 
-* Make comment form work with the login
+* make the step-2 form (edit post)
+
+
 * add default user pics
 
 
@@ -29,3 +28,10 @@ DONE
 * Make the register form
 * parse the register form
 * Adapt the day 4 login form 
+* Make a helper function to check to see if current user is logged in
+* Make the interface change (navigation) based on login
+* add logout
+* Make comment form work with the login
+* make the add-post form - step-1 form
+* Handle image upload
+* store the image post as a draft in DB
