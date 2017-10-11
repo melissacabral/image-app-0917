@@ -67,7 +67,7 @@ $phrase = clean_string( $_GET['phrase'] );
 			while( $row = $result->fetch_assoc() ): ?>
 	<article class="medium-post">
 		<a href="single.php?post_id=<?php echo $row['post_id']; ?>">
-			<img src="<?php echo $row['image']; ?>">
+			<?php display_post_image( $row['post_id'] ); ?>
 		</a>
 		<h2><?php echo $row['username']; ?></h2>
 		<h3><?php echo $row['title']; ?></h3>

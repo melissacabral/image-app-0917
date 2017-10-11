@@ -42,7 +42,9 @@ $logged_in_user = check_login();
 			//logged in menu items
 			else: ?>
 			<li><a href="add-post.php">Add New Post</a></li>
-			<li><a href="#"><?php echo $logged_in_user['username']; ?>'s Profile</a></li>
+			<li><a href="profile.php?user_id=<?php echo $logged_in_user['user_id']; ?>">
+				<?php echo $logged_in_user['username']; ?>'s Profile</a>
+			</li>
 			<li><a href="login.php?action=logout">Log Out</a></li>
 			<?php endif; ?>
 

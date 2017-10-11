@@ -8,7 +8,7 @@ include('includes/comment-parse.php');
 $post_id = $_GET['post_id'];
 //Get the info about this post
 $query = "SELECT posts.title, posts.date, posts.body, posts.image, users.username, 
-				users.profile_pic, categories.*
+				users.profile_pic, users.user_id, categories.*
 			FROM posts, users, categories
 			WHERE posts.user_id = users.user_id
 			AND posts.category_id = categories.category_id
@@ -31,7 +31,16 @@ endif;
 		$row = $result->fetch_assoc();
 	?>
 	<article>
-		<img src="<?php echo $row['image']; ?>">
+
+		<?php display_post_image( $post_id, 'large' ); ?>
+
+		<?php //if logged in as the author of this post, show the edit button
+		if( $logged_in_user['user_id'] == $row['user_id'] ):
+		?>
+			<a href="edit-post.php?post_id=<?php echo $post_id; ?>">Edit</a>
+		<?php	
+		endif; ?>
+		
 		<h2 class="profile-pic">
 			<img  src="<?php echo $row['profile_pic']; ?>" width="80" height="80">
 			<?php echo $row['username']; ?>

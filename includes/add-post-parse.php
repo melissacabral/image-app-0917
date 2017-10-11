@@ -103,10 +103,11 @@ if($_POST['did_add_post']):
 
 		if( $db->affected_rows == 1 ){
 			//successfully added to DB - go to step 2
-			$feedback .= 'DB success!';
+			$post_id = $db->insert_id;
+			header("Location:edit-post.php?post_id=$post_id");
 		}else{
 			//nothing added to DB
-			$feedback .= 'DD FAILED.';
+			$feedback .= 'DB FAILED.';
 		}		
 
 	} else{

@@ -38,7 +38,7 @@ echo '<?xml version="1.0"?>'; ?>
 				(<?php echo $row['username'] ?>)</author>
 			<pubDate><?php echo convert_date_rss($row['date']); ?></pubDate>
 			<description><![CDATA[ 
-				<img src="<?php echo $row['image']; ?>" width="400" height="400" alt="<?php echo $row['title']; ?>" >
+				<?php display_post_image( $row['post_id'] ); ?>
 				<h3>Category: <?php echo $row['name']; ?></h3>
 				<p><?php echo $row['body']; ?></p>
 			 ]]></description>

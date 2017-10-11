@@ -21,10 +21,8 @@
 			//loop it
 			while( $row = $result->fetch_assoc() ): 
 			?>
-			<a href="#" class="profile-pic small">
-				<img src="<?php echo $row['profile_pic'] ?>" 
-					alt="<?php echo $row['username'] ?>'s Profile" 
-					width="80" height="80">
+			<a href="profile.php?user_id=<?php echo $row['user_id']; ?>" class="profile-pic small">
+				<?php display_user_image( $row['user_id'], 30 ); ?>
 			</a>
 			<?php 
 			endwhile; 

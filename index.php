@@ -24,7 +24,7 @@
 			<?php echo $row['username']; ?>
 		</h2>
 			<a href="single.php?post_id=<?php echo $row['post_id']; ?>">
-				<img src="<?php echo $row['image']; ?>">
+				<?php display_post_image( $row['post_id'], 'large' ); ?>
 			</a>
 
 			<div class="post-info">

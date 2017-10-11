@@ -2,10 +2,15 @@ TODO
 ====
 
 
-* make the step-2 form (edit post)
+* hide comment form if the post does not allow comments
+
+* build and link to the category page
+
+* add tags system
+* add "likes" system
 
 
-* add default user pics
+* fix "absolute url" image issue on rss feed
 
 
 DONE
@@ -35,3 +40,13 @@ DONE
 * make the add-post form - step-1 form
 * Handle image upload
 * store the image post as a draft in DB
+* make a function to display the image
+* get the ID of the inserted image
+* after success on step 1, redirect to step 2
+* make the step-2 form (edit post)
+* change all existing post images so they use our new function
+* delete old dummy content
+* modify edit post so it can edit ANY post 
+* link to the edit-post page
+* build the user profile page and link to it
+* add default user pics
