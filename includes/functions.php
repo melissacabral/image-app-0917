@@ -242,4 +242,80 @@ function display_user_image( $user_id, $width = 80 ){
 		
 	endif;	
 }
+
+/**
+ * Display the tags applied to any post
+ * @param  int $post_id any valid post id
+ * @return string          comma-separated list of tags
+ */
+function show_post_tags( $post_id ){
+	global $db;
+	$query = "SELECT tags.* 
+				FROM tags, post_tags
+				WHERE post_tags.tag_id = tags.tag_id 
+				AND post_tags.post_id = $post_id";
+	$result = $db->query($query);
+	if(!$result)
+		echo $db->error;
+
+	if( $result->num_rows >= 1 ):
+		while( $row = $result->fetch_assoc() ):
+			$tags[] = $row['name'];
+		endwhile;
+
+		//convert array into comma separated list
+		echo implode( ', ', $tags );
+	endif;
+}
+
+/**
+ * Count the number of likes on any post
+ *
+ */
+function count_post_likes( $post_id ){
+	global $db;
+	$query = "SELECT COUNT(*) AS likes
+				FROM likes 
+				WHERE post_id = $post_id";
+	$result = $db->query($query);
+	if(!$result)
+		echo $db->error;
+
+	$row = $result->fetch_assoc();
+
+	$total = $row['likes'];
+
+	echo $total == 1 ? '1 like' : $total . ' likes';
+}
+
+
+function likes_interface( $post_id, $user_id ){
+	global $db;
+
+	//did this user like this post?
+	if($user_id){
+	$query = "SELECT COUNT(*) AS you_like
+			FROM   likes 
+			WHERE user_id = $user_id 
+			AND post_id = $post_id";
+
+	$result = $db->query($query);
+
+	if(!$result) echo $db->error;
+
+	$row = $result->fetch_assoc();
+	$class = $row['you_like'] ? 'you_like' : 'not_liked';	
+	}
+	?>
+	<span class="like-counter">
+		<div class="<?php echo $class; ?>">
+			<?php if($user_id){ ?>
+			<span class="heart-button" data-postid="<?php echo $post_id ?>">❤</span>
+			<?php }//logged in ?>
+			<?php count_post_likes( $post_id ); ?>
+
+		</div>
+	</span>
+	<?php
+}
 //no close php

@@ -324,6 +324,19 @@ textarea {
 #display-area.loading {
   background-color: #eee; }
 
+/* LIKES additions */
+.heart-button {
+  color: white;
+  -webkit-text-stroke: 1px gray;
+  text-shadow: -1px 	-1px 	0 gray,   1px 	-1px 	0 gray, -1px 	1px 	0 gray, 1px 	1px 	0 gray;
+  font-size: 1.4em;
+  cursor: pointer; }
+
+.you_like .heart-button {
+  -webkit-text-stroke: 1px red;
+  color: red;
+  text-shadow: none; }
+
 @media screen and (min-width: 800px) {
   .wrapper {
     display: -webkit-box;

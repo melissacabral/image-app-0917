@@ -28,8 +28,16 @@
 			</a>
 
 			<div class="post-info">
+
+				<div class="likes" >
+					<?php likes_interface( $row['post_id'], $logged_in_user['user_id'] ); ?>
+				</div>
+
 				<h3><?php echo $row['title']; ?></h3>
 				<h4>Category: <?php echo $row['name'] ?></h4>
+
+				<?php show_post_tags( $row['post_id'] ); ?>
+
 				<p><?php echo $row['body']; ?></p>
 				<span class="date"><?php convert_date($row['date']); ?></span>
 				<span class="comment-count"><?php count_comments( $row['post_id'] ); ?></span>

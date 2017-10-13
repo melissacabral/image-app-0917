@@ -6,10 +6,6 @@ TODO
 
 * build and link to the category page
 
-* add tags system
-* add "likes" system
-
-
 * fix "absolute url" image issue on rss feed
 
 
@@ -50,3 +46,8 @@ DONE
 * link to the edit-post page
 * build the user profile page and link to it
 * add default user pics
+* add tags system
+* add "likes" system
+	* add likes table
+	* Display number of likes on each post
+	* interface button + ajax to update the number of likes
